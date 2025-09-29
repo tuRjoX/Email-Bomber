@@ -238,6 +238,7 @@
             this.btnBrowseFile.TabIndex = 1;
             this.btnBrowseFile.Text = "Browse";
             this.btnBrowseFile.UseVisualStyleBackColor = true;
+            this.btnBrowseFile.Click += new System.EventHandler(this.btnBrowseFile_Click);
             // 
             // label6
             // 
@@ -316,6 +317,7 @@
             this.btnSend.TabIndex = 10;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // groupBox6
             // 
