@@ -19,14 +19,9 @@ namespace Email_Bomber
         {
             InitializeComponent();
             this.StartPosition = FormStartPosition.CenterScreen;
-            // Attach event handlers to radio buttons
             rbGmail.CheckedChanged += new EventHandler(RadioButton_CheckedChanged);
             rbYahoo.CheckedChanged += new EventHandler(RadioButton_CheckedChanged);
             rbOutlook.CheckedChanged += new EventHandler(RadioButton_CheckedChanged);
-            
-            // Add these lines to wire up button events
-            btnSend.Click += btnSend_Click;
-            btnBrowseFile.Click += btnBrowseFile_Click;
         }
 
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
@@ -90,8 +85,6 @@ namespace Email_Bomber
                 MessageBox.Show("Please select an email provider (Gmail, Yahoo, or Outlook).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Disable send button during operation
             btnSend.Enabled = false;
             btnSend.Text = "Sending...";
 
@@ -103,8 +96,6 @@ namespace Email_Bomber
                 for (int i = 0; i < numberOfEmails; i++)
                 {
                     await SendEmailAsync();
-                    
-                    // Add delay between emails (except for the last one)
                     if (i < numberOfEmails - 1 && delay > 0)
                     {
                         await Task.Delay(delay);
@@ -119,7 +110,6 @@ namespace Email_Bomber
             }
             finally
             {
-                // Re-enable send button
                 btnSend.Enabled = true;
                 btnSend.Text = "Send";
             }
@@ -134,8 +124,6 @@ namespace Email_Bomber
                 mail.Subject = txtSubject.Text;
                 mail.Body = rtbBody.Text;
                 mail.IsBodyHtml = cbxHtmlBody.Checked;
-
-                // Add attachment if selected
                 if (!string.IsNullOrEmpty(fileName) && System.IO.File.Exists(fileName))
                 {
                     Attachment attachment = new Attachment(fileName);
@@ -146,7 +134,7 @@ namespace Email_Bomber
                 {
                     smtp.Credentials = new NetworkCredential(txtSenderEmail.Text, txtSenderPassword.Text);
                     smtp.EnableSsl = enableSSL;
-                    smtp.Timeout = 30000; // 30 seconds timeout
+                    smtp.Timeout = 30000; 
 
                     await smtp.SendMailAsync(mail);
                 }
