@@ -140,5 +140,10 @@ namespace Email_Bomber
                 }
             }
         }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
